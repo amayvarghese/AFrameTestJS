@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Frame Debugging with AR.js</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!-- Add AR.js Library -->
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+        <!-- Lighting -->
+        <a-light type="directional" position="0 2 10" intensity="1"></a-light>
+
+        <!-- 3D Model -->
+        <a-entity 
+            id="model" 
+            gltf-model="./blind1/scene.gltf" 
+            scale="5 5 5" 
+            position="0 0.15 -7"
+            rotation="0 0 0"
+            event-set__loaded="_event: model-loaded; _target: #status; text: value: Model Loaded!"
+            event-set__error="_event: model-error; _target: #status; text: value: Failed to Load Model!">
+        </a-entity>
+
+        <!-- Debug Text -->
+        <!-- <a-text id="status" value="Loading Model..." position="-1 2 -3" color="black"></a-text> -->
+    </a-scene>
+
+    <script>
+        // Log errors to the console
+        document.querySelector('#model').addEventListener('model-error', (e) => {
+            console.error('Model failed to load:', e.detail);
+        });
+    </script>
+</body>
+</html>
